@@ -51,16 +51,48 @@ install_yay() {
 detect_and_install_gpu() {
   local vendor
   vendor=$(lspci | grep -i vga | grep -oE 'NVIDIA|AMD|Intel' | head -n1 || true)
+
+  # Ensure multilib is enabled if possible (for lib32- packages)
+  local had_multilib
+  if grep -q '^\[multilib\]' /etc/pacman.conf; then
+    had_multilib=1
+  else
+    had_multilib=0
+    sed -i 's/^#\s*\[multilib\]/[multilib]/' /etc/pacman.conf || true
+    sed -i 's/^#\s*Include\s*=\s*\/etc\/pacman.d\/mirrorlist/Include = \/etc\/pacman.d\/mirrorlist/' /etc/pacman.conf || true
+    pacman -Sy || true
+  fi
+
+  local pkgs=(mesa)
   case "$vendor" in
     NVIDIA)
-      pacman -Sy --noconfirm --needed nvidia nvidia-utils nvidia-settings;;
+      pkgs=(nvidia nvidia-utils nvidia-settings);;
     AMD)
-      pacman -Sy --noconfirm --needed mesa vulkan-radeon lib32-vulkan-radeon xf86-video-amdgpu;;
+      pkgs=(mesa vulkan-radeon xf86-video-amdgpu)
+      if grep -q '^\[multilib\]' /etc/pacman.conf; then
+        pkgs+=(lib32-vulkan-radeon)
+      fi
+      ;;
     Intel)
-      pacman -Sy --noconfirm --needed mesa vulkan-intel lib32-vulkan-intel intel-media-driver;;
+      pkgs=(mesa vulkan-intel intel-media-driver)
+      if grep -q '^\[multilib\]' /etc/pacman.conf; then
+        pkgs+=(lib32-vulkan-intel)
+      fi
+      ;;
     *)
-      pacman -Sy --noconfirm --needed mesa;;
+      pkgs=(mesa);;
   esac
+
+  # Install available packages, skip missing ones to avoid failures
+  local to_install=()
+  for p in "${pkgs[@]}"; do
+    if pacman -Si "$p" >/dev/null 2>&1; then
+      to_install+=("$p")
+    fi
+  done
+  if (( ${#to_install[@]} )); then
+    pacman -Sy --noconfirm --needed "${to_install[@]}"
+  fi
 }
 
 install_fonts() {
