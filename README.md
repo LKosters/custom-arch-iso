@@ -14,46 +14,18 @@ A custom Arch Linux installation ISO with Hyprland, pre-configured Waybar (macOS
 - **Waybar**: macOS-style topbar
 - **Auto-detection**: GPU drivers, partitioning assistance
 
-## Building the ISO
+## Install directly on your current Arch system (no ISO)
 
-1. Install required packages:
+1. Run the installer as root:
 ```bash
-sudo pacman -S archiso
+sudo bash install-on-arch.sh
 ```
 
-2. Make the build script executable:
-```bash
-chmod +x build-iso.sh
-```
+2. It will prompt for the target username (defaults to your current user), then install GPU drivers, packages, fonts, and write configs.
 
-3. Run the build script as root:
-```bash
-sudo ./build-iso.sh
-```
+3. Log out and log back in on TTY1, or reboot. Hyprland will start automatically.
 
-4. The ISO will be created in the current directory as `customarch-YYYYMMDD.iso`
-
-## Using the ISO
-
-1. Flash the ISO to a USB drive:
-```bash
-sudo dd if=customarch-*.iso of=/dev/sdX bs=4M status=progress
-```
-
-2. Boot from the USB drive
-
-3. The system will auto-login as root. Run the installer:
-```bash
-/root/installer/install.sh
-```
-
-4. Follow the prompts:
-   - Select target partition
-   - Enter username
-   - Enter passwords
-   - Choose whether to format partition
-
-5. Reboot and login with your username. Hyprland will start automatically.
+If you still want an ISO later, keep the `build-iso.sh` and `archlive/` folder, but direct install is now the primary path.
 
 ## Keyboard Shortcuts
 
