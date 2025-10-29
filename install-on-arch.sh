@@ -27,7 +27,6 @@ ensure_base_packages() {
   pacman -Sy --noconfirm --needed \
     base base-devel git curl wget unzip \
     networkmanager openssh sudo \
-    pipewire pipewire-pulse pipewire-jack pipewire-alsa wireplumber pavucontrol \
     hyprland waybar rofi \
     gtk3 gtk4 qt5ct qt6ct polkit-gnome \
     xdg-desktop-portal-hyprland xdg-desktop-portal-gtk xdg-utils \
