@@ -24,6 +24,7 @@ prompt_user() {
 }
 
 ensure_base_packages() {
+  pacman -Syu --noconfirm || true
   pacman -Sy --noconfirm --needed \
     base base-devel git curl wget unzip \
     networkmanager openssh sudo \
@@ -31,7 +32,7 @@ ensure_base_packages() {
     gtk3 gtk4 qt5ct qt6ct polkit-gnome \
     xdg-desktop-portal-hyprland xdg-desktop-portal-gtk xdg-utils \
     thunar thunar-archive-plugin file-roller \
-    noto-fonts ttf-font-awesome
+    noto-fonts ttf-font-awesome ttf-nerd-fonts-symbols ttf-nerd-fonts-symbols-mono noto-fonts-emoji
 
   systemctl enable --now NetworkManager || true
   systemctl enable --now sshd || true
@@ -130,7 +131,8 @@ install_fonts() {
 
 install_apps() {
   install_yay
-  sudo -u "$TARGET_USER" yay -S --noconfirm --needed ghostty-bin zen-browser 1password 1password-cli || true
+  sudo -u "$TARGET_USER" yay -Syu --noconfirm || true
+  sudo -u "$TARGET_USER" yay -S --noconfirm --needed ghostty-bin zen-browser-bin 1password-bin 1password-cli-bin || true
   pacman -Sy --noconfirm --needed discord fastfetch firefox htop vim nano git python python-pip nodejs npm rust cargo || true
 }
 
@@ -270,7 +272,7 @@ WAYBARJSON
 
   # Waybar style
   cat > "$cfg/waybar/style.css" << 'WAYBARCSS'
-* { border: none; border-radius: 0; font-family: "Space Grotesk", "Font Awesome 6 Free"; font-size: 13px; min-height: 0; color: #e0e0e0; }
+* { border: none; border-radius: 0; font-family: "Space Grotesk", "Symbols Nerd Font", "Symbols Nerd Font Mono", "Font Awesome 6 Free"; font-size: 13px; min-height: 0; color: #e0e0e0; }
 window#waybar { background-color: rgba(20,20,20,0.85); border-bottom: 1px solid rgba(255,255,255,0.1); color:#e0e0e0; transition-property: background-color; transition-duration:.5s; border-radius:0; }
 window#waybar.hidden { opacity: .2; }
 #workspaces button { padding: 0 10px; background: transparent; color:#888; border-bottom:3px solid transparent; transition: all .3s ease; }
@@ -311,8 +313,8 @@ configuration {
     lines: 10;
     columns: 1;
     fixed-num-lines: true;
-    theme: "~/.config/rofi/themes/dark.rasi";
 }
+@theme "~/.config/rofi/themes/dark.rasi"
 ROFICONF
 
   cat > "$cfg/rofi/themes/dark.rasi" << 'ROFITHEME'
@@ -333,6 +335,28 @@ ROFITHEME
 GTKCSS
 
   chown -R "$TARGET_USER:$TARGET_USER" "$cfg"
+}
+
+setup_waybar_service() {
+  local sysd="$TARGET_HOME/.config/systemd/user"
+  install -d -m 755 "$sysd"
+  cat > "$sysd/waybar.service" << 'UNIT'
+[Unit]
+Description=Waybar status bar
+PartOf=graphical-session.target
+
+[Service]
+ExecStart=/usr/bin/waybar
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=graphical-session.target
+UNIT
+
+  chown -R "$TARGET_USER:$TARGET_USER" "$sysd"
+  sudo -u "$TARGET_USER" systemctl --user daemon-reload || true
+  sudo -u "$TARGET_USER" systemctl --user enable --now waybar.service || true
 }
 
 setup_autostart() {
@@ -357,6 +381,7 @@ main() {
   install_apps
   install_fonts
   write_configs
+  setup_waybar_service
   setup_autostart
   environment_tweaks
 
