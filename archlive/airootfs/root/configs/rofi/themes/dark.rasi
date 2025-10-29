@@ -1,0 +1,189 @@
+* {
+    bg-col:  #1a1a1a;
+    bg-col-light: #252525;
+    border-col: #333333;
+    selected-col: #007AFF;
+    blue: #007AFF;
+    fg-col: #e0e0e0;
+    grey: #888888;
+    width: 600;
+    font: "Space Grotesk 14";
+}
+
+element-text, element-icon, mode-switcher {
+    background-color: inherit;
+    text-color:       inherit;
+}
+
+window {
+    height: 360px;
+    border: 2px;
+    border-color: @border-col;
+    background-color: @bg-col;
+    border-radius: 12px;
+    padding: 5px;
+}
+
+mainbox {
+    background-color: @bg-col;
+}
+
+inputbar {
+    children: [prompt,entry];
+    background-color: @bg-col;
+    border-radius: 8px;
+    padding: 5px;
+}
+
+prompt {
+    background-color: @selected-col;
+    padding: 6px;
+    text-color: #ffffff;
+    border-radius: 8px;
+    margin: 5px;
+}
+
+textbox-prompt-colon {
+    expand: false;
+    str: ":";
+}
+
+entry {
+    padding: 6px;
+    margin: 5px;
+    text-color: @fg-col;
+    background-color: @bg-col-light;
+    border-radius: 8px;
+}
+
+listview {
+    border: 2px 0px 0px;
+    border-color: @border-col;
+    border-radius: 8px;
+    margin: 0px 0px 0px;
+    padding: 6px 0px 0px;
+    scrollbar: false;
+    columns: 1;
+    lines: 5;
+    spacing: 5px;
+    background-color: @bg-col;
+}
+
+element {
+    border: 0;
+    padding: 8px;
+    border-radius: 8px;
+}
+
+element normal.normal {
+    background-color: @bg-col-light;
+    text-color: @fg-col;
+}
+
+element normal.urgent {
+    background-color: #FF0000;
+    text-color: #ffffff;
+}
+
+element normal.active {
+    background-color: @selected-col;
+    text-color: #ffffff;
+}
+
+element selected.normal {
+    background-color: @selected-col;
+    text-color: #ffffff;
+}
+
+element selected.urgent {
+    background-color: @selected-col;
+    text-color: #ffffff;
+}
+
+element selected.active {
+    background-color: @selected-col;
+    text-color: #ffffff;
+    border: 0px 0px 0px 0px;
+}
+
+element-icon {
+    size: 20px;
+}
+
+element-text {
+    expand: true;
+    horizontal-align: 0;
+    margin: 2px;
+    background-color: transparent;
+    text-color: inherit;
+}
+
+message {
+    border: 2px 0px 0px;
+    border-color: @border-col;
+    background-color: @bg-col;
+    padding: 2px;
+    text-color: @fg-col;
+}
+
+textbox {
+    padding: 6px;
+    margin: 2px;
+    border-radius: 8px;
+    text-color: @fg-col;
+    background-color: @bg-col-light;
+}
+
+error-message {
+    padding: 8px;
+    border-radius: 8px;
+    background-color: #FF0000;
+    text-color: #ffffff;
+}
+
+mode-switcher {
+    spacing: 0;
+}
+
+button {
+    padding: 10px;
+    border-radius: 8px;
+    text-color: @grey;
+    background-color: @bg-col-light;
+}
+
+button selected {
+    background-color: @selected-col;
+    text-color: #ffffff;
+}
+
+inputbar {
+    spacing: 0;
+    text-color: @fg-col;
+    padding: 5px;
+    background-color: @bg-col-light;
+    border-radius: 8px;
+    margin: 5px;
+}
+
+case-indicator {
+    spacing: 0;
+    text-color: @fg-col;
+}
+
+textarea {
+    text-color: @fg-col;
+    background-color: @bg-col-light;
+    border-radius: 8px;
+    padding: 8px;
+}
+
+prompt {
+    text-color: @fg-col;
+    padding: 10px;
+    background-color: @selected-col;
+    text-color: #ffffff;
+    border-radius: 8px;
+    margin: 5px;
+}
+

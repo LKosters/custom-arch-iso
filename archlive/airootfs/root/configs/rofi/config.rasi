@@ -1,0 +1,23 @@
+configuration {
+    modi: "drun,run,window";
+    show-icons: true;
+    terminal: "ghostty";
+    drun-display-format: "{icon} {name}";
+    location: 0;
+    disable-history: false;
+    hide-scrollbar: true;
+    display-drun: "Applications";
+    display-run: "Run";
+    display-window: "Windows";
+    display-Network: "Networks";
+    sidebar-mode: true;
+    font: "Space Grotesk 13";
+    width: 50;
+    lines: 10;
+    columns: 1;
+    fixed-num-lines: true;
+    theme: "~/.config/rofi/themes/dark.rasi";
+}
+
+@theme "/home/{user}/.config/rofi/themes/dark.rasi"
+

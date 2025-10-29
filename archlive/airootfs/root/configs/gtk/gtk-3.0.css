@@ -1,0 +1,50 @@
+* {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 13px;
+}
+
+heading {
+    font-family: "Instrument Serif", serif;
+    font-weight: 600;
+}
+
+window {
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+}
+
+button {
+    background-color: #252525;
+    color: #e0e0e0;
+    border: 1px solid #333333;
+    border-radius: 8px;
+    padding: 8px 16px;
+}
+
+button:hover {
+    background-color: #333333;
+}
+
+entry {
+    background-color: #252525;
+    color: #e0e0e0;
+    border: 1px solid #333333;
+    border-radius: 8px;
+    padding: 8px;
+}
+
+.list {
+    background-color: #1a1a1a;
+}
+
+.list-row {
+    background-color: #252525;
+    border-radius: 8px;
+    margin: 2px;
+    padding: 8px;
+}
+
+.list-row:hover {
+    background-color: #333333;
+}
+

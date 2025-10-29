@@ -1,0 +1,143 @@
+* {
+    border: none;
+    border-radius: 0;
+    font-family: "Space Grotesk", "Font Awesome 6 Free";
+    font-size: 13px;
+    min-height: 0;
+    color: #e0e0e0;
+}
+
+window#waybar {
+    background-color: rgba(20, 20, 20, 0.85);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: #e0e0e0;
+    transition-property: background-color;
+    transition-duration: .5s;
+    border-radius: 0;
+}
+
+window#waybar.hidden {
+    opacity: 0.2;
+}
+
+#workspaces button {
+    padding: 0 10px;
+    background-color: transparent;
+    color: #888888;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s ease;
+}
+
+#workspaces button:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #e0e0e0;
+}
+
+#workspaces button.active {
+    color: #ffffff;
+    border-bottom: 3px solid #007AFF;
+    background-color: rgba(0, 122, 255, 0.1);
+}
+
+#workspaces button.urgent {
+    background-color: #eb4d4b;
+    color: #ffffff;
+}
+
+#window {
+    padding: 0 15px;
+    font-weight: 500;
+    color: #e0e0e0;
+}
+
+tooltip {
+    background: rgba(20, 20, 20, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 5px 10px;
+}
+
+tooltip label {
+    color: #e0e0e0;
+}
+
+#clock,
+#battery,
+#cpu,
+#memory,
+#temperature,
+#backlight,
+#network,
+#pulseaudio,
+#idle_inhibitor,
+#tray,
+#mode {
+    padding: 0 8px;
+    margin: 0 2px;
+    color: #e0e0e0;
+    background-color: transparent;
+}
+
+#clock {
+    font-weight: 600;
+}
+
+#battery.charging {
+    color: #52D017;
+}
+
+#battery.warning:not(.charging) {
+    color: #FDB813;
+}
+
+#battery.critical:not(.charging) {
+    color: #FF0000;
+}
+
+#network.disconnected {
+    color: #888888;
+}
+
+#pulseaudio.muted {
+    color: #888888;
+}
+
+#temperature.critical {
+    color: #FF0000;
+}
+
+#idle_inhibitor.activated {
+    color: #52D017;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+    background-color: #eb4d4b;
+}
+
+#cpu,
+#memory,
+#temperature {
+    font-weight: 400;
+}
+
+#battery {
+    font-weight: 500;
+}
+
+#network {
+    font-weight: 500;
+}
+
+#pulseaudio {
+    font-weight: 500;
+}
+
+#clock {
+    font-weight: 600;
+}
+
